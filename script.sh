@@ -14,6 +14,11 @@ sed -i "/^#Color/{s/^#//; n;n;n;n;s/^$/\n/}" /etc/pacman.conf
 
 echo "Pacman configuration done"
 
+# Autoclean the pacman cache
+echo "Autocleaning the pacman cache"
+sudo pacman -S pacman-contrib
+sudo systemctl enable paccache.timer
+
 # Install reflector package to get the fastest mirror
 
 echo "Installing reflector package"
@@ -64,6 +69,8 @@ elif echo "$cpu_model" | grep -q "AMD"; then
 else
     echo "No drivers found for the CPU"
 fi
+
+
 
 # Update the system, if the bootloader is grub or systemd-boot
 echo "Updating the system"
