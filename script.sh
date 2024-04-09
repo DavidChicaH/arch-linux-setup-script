@@ -10,10 +10,18 @@ sudo pacman -Syu
 
 echo "Configuring the pacman.conf file"
 # Uncomment the color line in pacman.conf
-sudo sed -i 's/#Color/Color/g' /etc/pacman.conf
+sed -i "/^#Color/{s/^#//; n;n;n;n;s/^$/\n/}" /etc/pacman.conf
 
-# Add ILoveCandy to pacman.conf
-echo "ILoveCandy" | sudo tee -a /etc/pacman.conf > /dev/null
+ILoveCandy="ILoveCandy"
+
+# Add ILoveCandy to pacman.conf if doesn't exist
+if ! grep -q $ILoveCandy /etc/pacman.conf; then
+    echo -e "\n$ILoveCandy" | sudo tee -a /etc/pacman.conf > /dev/null
+    echo "ILoveCandy added to pacman.conf \n"
+else
+    echo "ILoveCandy already exists in pacman.conf"
+fi
+
 
 echo "Pacman configuration done"
 
@@ -46,7 +54,7 @@ fi
 # Install essential packages
 echo "Installing essential packages"
 
-sudo pacman -S --noconfirm base-devel git vim unrar unzip p7zip wget curl neofetch htop 
+sudo pacman -S --noconfirm vim nano unrar unzip p7zip wget curl neofetch htop 
 
 # Install java jdk
 
@@ -84,6 +92,7 @@ fi
 # Install yay package manager
 echo "Installing yay package manager"
 
+pacman -S --needed git base-devel
 git clone https://aur.archlinux.org/yay.git
 cd yay
 makepkg -si --noconfirm
