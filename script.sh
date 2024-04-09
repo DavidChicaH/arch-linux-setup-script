@@ -16,13 +16,13 @@ echo "Pacman configuration done"
 
 # Autoclean the pacman cache
 echo "Autocleaning the pacman cache"
-sudo pacman -S pacman-contrib
+sudo pacman -S --needded pacman-contrib
 sudo systemctl enable paccache.timer
 
 # Install reflector package to get the fastest mirror
 
 echo "Installing reflector package"
-sudo pacman -S --noconfirm reflector
+sudo pacman -S --noconfirm --needed reflector
 
 sudo cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.bak
 
@@ -37,7 +37,7 @@ sudo pacman -Syu
 # Install bluetooth packages if the system has bluetooth adapter
 if hciconfig | grep -q "hci"; then
     echo "Bluetooth adapter found"
-    sudo pacman -S --noconfirm bluez bluez-utils blueman
+    sudo pacman -S --noconfirm --needed bluez bluez-utils blueman
     sudo systemctl enable bluetooth.service
     sudo systemctl start bluetooth.service
 else
@@ -48,12 +48,12 @@ fi
 # Install essential packages
 echo "Installing essential packages"
 
-sudo pacman -S --noconfirm vim nano unrar unzip p7zip wget curl neofetch htop 
+sudo pacman -S --noconfirm --needed vim nano unrar unzip p7zip wget curl neofetch htop 
 
 # Install java jdk
 
 echo "Installing java jdk"
-sudo pacman -S --noconfirm jdk-openjdk
+sudo pacman -S --noconfirm --needed jdk-openjdk
 
 # Install the drivers for the system
 echo "Installing the drivers"
@@ -62,10 +62,10 @@ cpu_model=$(lscpu | grep "Model name" | awk -F': ' '{print $2}')
 
 if echo "$cpu_model" | grep -q "Intel"; then
     echo "Intel CPU found, downloading the drivers..."
-    sudo pacman -S --noconfirm intel-ucode
+    sudo pacman -S --noconfirm --needed intel-ucode
 elif echo "$cpu_model" | grep -q "AMD"; then
     echo "AMD CPU found, downloading the drivers..."
-    sudo pacman -S --noconfirm amd-ucode
+    sudo pacman -S --noconfirm --needed amd-ucode
 else
     echo "No drivers found for the CPU"
 fi
@@ -101,7 +101,7 @@ yay -S --noconfirm google-chrome visual-studio-code-bin
 
 # install another packages
 echo "Installing another packages"
-sudo pacman -S --noconfirm flatpak vlc ufw timeshift 
+sudo pacman -S --noconfirm --needed flatpak vlc ufw timeshift 
 
 # Enable the ufw firewall
 echo "Enabling the ufw firewall"
