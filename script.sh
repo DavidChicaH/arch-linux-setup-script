@@ -12,17 +12,6 @@ echo "Configuring the pacman.conf file"
 # Uncomment the color line in pacman.conf
 sed -i "/^#Color/{s/^#//; n;n;n;n;s/^$/\n/}" /etc/pacman.conf
 
-ILoveCandy="ILoveCandy"
-
-# Add ILoveCandy to pacman.conf if doesn't exist
-if ! grep -q $ILoveCandy /etc/pacman.conf; then
-    sed -i "/^#ParallelDownloads = 5/a\\n$ILoveCandy" /etc/pacman.conf
-    echo "$ILoveCandy added to pacman.conf \n"
-else
-    echo "$ILoveCandy already exists in pacman.conf"
-fi
-
-
 echo "Pacman configuration done"
 
 # Install reflector package to get the fastest mirror
