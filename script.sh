@@ -81,7 +81,7 @@ fi
 # Install yay package manager
 echo "Installing yay package manager"
 
-pacman -S --needed git base-devel
+sudo pacman -S --needed git base-devel
 git clone https://aur.archlinux.org/yay.git
 cd yay
 makepkg -si --noconfirm
@@ -135,7 +135,7 @@ fnm install --lts
 
 # Installing fonts
 
-sudo pacman -S --noconfirm --needed ttf-cascadia-code ttf-dejavu ttf-ms-fonts ttf-linux-libertine noto-fonts noto-fonts-cjk noto-fonts-emoji noto-fonts-extra
+sudo pacman -S --noconfirm --needed ttf-cascadia-code ttf-dejavu ttf-linux-libertine noto-fonts noto-fonts-cjk noto-fonts-emoji noto-fonts-extra
 yay -S --noconfirm ttf-ms-fonts
 
 # Downlod themes and icons
@@ -147,14 +147,21 @@ cd Orchis-theme && ./install.sh
 
 cd ..
 
+rm -rf Orchis-theme
+
+
 git clone https://github.com/vinceliuice/Tela-circle-icon-theme.git
 
 cd Tela-circle-icon-theme && ./install.sh
 
 cd ..
 
+rm -rf Tela-circle-icon-theme
+
 git clone https://github.com/vinceliuice/WhiteSur-gtk-theme.git
 
 cd WhiteSur-gtk-theme && ./install.sh
 
 cd ..
+
+rm -rf WhiteSur-gtk-theme
