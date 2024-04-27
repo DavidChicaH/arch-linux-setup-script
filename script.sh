@@ -6,17 +6,10 @@
 echo "Updating the system"
 sudo pacman -Syu 
 
-# configure the pacman.conf file
-
-echo "Configuring the pacman.conf file"
-# Uncomment the color line in pacman.conf
-sed -i "/^#Color/{s/^#//; n;n;n;n;s/^$/\n/}" /etc/pacman.conf
-
-echo "Pacman configuration done"
 
 # Autoclean the pacman cache
 echo "Autocleaning the pacman cache"
-sudo pacman -S --needded pacman-contrib
+sudo pacman -S --needed pacman-contrib
 sudo systemctl enable paccache.timer
 
 # Install reflector package to get the fastest mirror
@@ -48,7 +41,7 @@ fi
 # Install essential packages
 echo "Installing essential packages"
 
-sudo pacman -S --noconfirm --needed vim nano unrar unzip p7zip wget curl neofetch htop 
+sudo pacman -S --noconfirm --needed vim neovim nano unrar unzip p7zip wget curl neofetch htop linux-lts-headers
 
 # Install java jdk
 
@@ -97,22 +90,71 @@ rm -rf yay
 
 # Install the packages from the AUR
 echo "Installing packages from the AUR"
-yay -S --noconfirm google-chrome visual-studio-code-bin 
+yay -S --noconfirm  auto-cpufreq preload
+
+# Enable the auto-cpufreq service
+echo "Enabling the auto-cpufreq service"
+sudo systemctl enable auto-cpufreq
+sudo systemctl start auto-cpufreq
+
+
+echo "Preload package installed, enabling the service"
+sudo systemctl enable preload
+sudo systemctl start preload
 
 # install another packages
 echo "Installing another packages"
-sudo pacman -S --noconfirm --needed flatpak vlc ufw timeshift 
+sudo pacman -S --noconfirm --needed flatpak vlc ufw timeshift chromium dbeaver virtualbox virtualbox-host-dkms
 
 # Enable the ufw firewall
 echo "Enabling the ufw firewall"
 sudo sytemctl enable ufw
 sudo systemctl start ufw
 
-# Install preload package
+# Enable the timeshift service
+echo "Enabling the timeshift service"
+sudo systemctl enable timeshift
 
-echo "Installing the preload package"
-yay -S --noconfirm preload
-echo "Preload package installed, enabling the service"
-sudo systemctl enable preload
-sudo systemctl start preload
+# install flatpak packages
+echo "Installing flatpak packages"
 
+flatpak install flathub org.duckstation.DuckStation
+
+#Install fnm and nodejs
+
+echo "Installing fnm and nodejs"
+
+echo "Installing Rust Lang"
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+
+echo "Installing fnm"
+curl -fsSL https://fnm.vercel.app/install | bash
+
+echo "Installing nodejs"
+fnm install --lts
+
+# Installing fonts
+
+sudo pacman -S --noconfirm --needed ttf-cascadia-code ttf-dejavu ttf-ms-fonts ttf-linux-libertine noto-fonts noto-fonts-cjk noto-fonts-emoji noto-fonts-extra
+yay -S --noconfirm ttf-ms-fonts
+
+# Downlod themes and icons
+echo "Downloading themes and icons"
+
+git clone https://github.com/vinceliuice/Orchis-theme.git
+
+cd Orchis-theme && ./install.sh
+
+cd ..
+
+git clone https://github.com/vinceliuice/Tela-circle-icon-theme.git
+
+cd Tela-circle-icon-theme && ./install.sh
+
+cd ..
+
+git clone https://github.com/vinceliuice/WhiteSur-gtk-theme.git
+
+cd WhiteSur-gtk-theme && ./install.sh
+
+cd ..
