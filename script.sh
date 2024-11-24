@@ -4,7 +4,7 @@
 
 # Update the system
 echo "Updating the system"
-sudo pacman -Syu 
+sudo pacman -Syu --noconfir,
 
 
 # Autoclean the pacman cache
@@ -23,9 +23,6 @@ sudo cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.bak
 echo "Getting the fastest mirror"
 sudo reflector --verbose --latest 10 --protocol https --sort rate --save /etc/pacman.d/mirrorlist
 
-# Update the system
-echo "Updating the system"
-sudo pacman -Syu
 
 # Install bluetooth packages if the system has bluetooth adapter
 if hciconfig | grep -q "hci"; then
@@ -41,7 +38,7 @@ fi
 # Install essential packages
 echo "Installing essential packages"
 
-sudo pacman -S --noconfirm --needed vim neovim nano unrar unzip p7zip wget curl neofetch htop linux-lts-headers
+sudo pacman -S --noconfirm --needed vim neovim nano unrar unzip p7zip wget curl fastfetch htop linux-lts-headers
 
 # Install java jdk
 
@@ -90,7 +87,7 @@ rm -rf yay
 
 # Install the packages from the AUR
 echo "Installing packages from the AUR"
-yay -S --noconfirm  auto-cpufreq preload
+yay -S --noconfirm  auto-cpufreq preload brave-bin light networkmanager-dmenu-git oh-my-posh-bin zapzap qimgv
 
 # Enable the auto-cpufreq service
 echo "Enabling the auto-cpufreq service"
@@ -104,21 +101,12 @@ sudo systemctl start preload
 
 # install another packages
 echo "Installing another packages"
-sudo pacman -S --noconfirm --needed flatpak vlc ufw timeshift chromium dbeaver virtualbox virtualbox-host-dkms
+sudo pacman -S --noconfirm --needed vlc ufw dbeaver virtualbox virtualbox-host-dkms alacritty dmenu feh httpie rofi scrot xorg-xrandr open-ssh
 
 # Enable the ufw firewall
 echo "Enabling the ufw firewall"
 sudo sytemctl enable ufw
 sudo systemctl start ufw
-
-# Enable the timeshift service
-echo "Enabling the timeshift service"
-sudo systemctl enable timeshift
-
-# install flatpak packages
-echo "Installing flatpak packages"
-
-flatpak install flathub org.duckstation.DuckStation
 
 #Install fnm and nodejs
 
@@ -137,31 +125,3 @@ fnm install --lts
 
 sudo pacman -S --noconfirm --needed ttf-cascadia-code ttf-dejavu ttf-linux-libertine noto-fonts noto-fonts-cjk noto-fonts-emoji noto-fonts-extra
 yay -S --noconfirm ttf-ms-fonts
-
-# Downlod themes and icons
-echo "Downloading themes and icons"
-
-git clone https://github.com/vinceliuice/Orchis-theme.git
-
-cd Orchis-theme && ./install.sh
-
-cd ..
-
-rm -rf Orchis-theme
-
-
-git clone https://github.com/vinceliuice/Tela-circle-icon-theme.git
-
-cd Tela-circle-icon-theme && ./install.sh
-
-cd ..
-
-rm -rf Tela-circle-icon-theme
-
-git clone https://github.com/vinceliuice/WhiteSur-gtk-theme.git
-
-cd WhiteSur-gtk-theme && ./install.sh
-
-cd ..
-
-rm -rf WhiteSur-gtk-theme
