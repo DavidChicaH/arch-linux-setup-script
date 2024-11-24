@@ -1,0 +1,29 @@
+[window]
+padding = { x = 10, y = 10 }
+decorations = "None"
+opacity = 0.93
+title = ""
+
+[font]
+size = 9
+
+[font.normal]
+family = "Fira Code Nerd Font Mono"
+style = "Regular"
+
+[font.bold]
+style = "Bold"
+
+[font.italic]
+style = "Bold"
+
+[font.bold_italic]
+style = "Bold Italic"
+
+[cursor]
+style = { shape = "Beam" }
+
+[general]
+import = [
+"~/.config/alacritty/themes/themes/one_dark.toml"
+	]
